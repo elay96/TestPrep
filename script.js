@@ -1,6 +1,10 @@
 "use strict";
 
-// Exam for example
+//
+//
+// EXAMPLE TEST
+//
+//
 
 const currentExam = [
   {
@@ -31,9 +35,12 @@ const currentExam = [
   },
 ];
 
-// console.log(currentExam[0]["options"][0]);
+//
+//
+// DEFINE VARIABLES
+//
+//
 
-// Define Variables
 const examName = document.getElementById("exam-name");
 const questionName = document.getElementById("question-name");
 const optionsList = document.getElementById("options-list");
@@ -41,30 +48,45 @@ const questionImage = document.getElementById("question-image");
 const questionButtons = document.getElementById("question-buttons");
 let questionIndex = 0;
 
-// Define Objects
+//
+//
+// DEFINE FUNCTIONS
+//
+//
 
-examName.innerHTML = "מבחן לדוגמא";
-questionName.innerHTML = currentExam[questionIndex]["question"];
-optionsList.innerHTML = "";
-for (
-  let i = 0;
-  i < Object.keys(currentExam[questionIndex]["options"]).length;
-  i++
-) {
-  let a = document.createElement("a");
-  a.innerHTML = currentExam[questionIndex]["options"][i];
-  optionsList
-    .appendChild(a)
-    .classList.add(
-      "dropdown-item",
-      "list-group-item",
-      "list-group-item-action"
-    );
+function setPageObjects(test_name) {
+  // Will be replaced with test's name
+  examName.innerHTML = "מבחן לדוגמא";
+  questionIndex = 0;
+  setQuestion();
 }
-if (Object.values(currentExam[questionIndex]["image"]) != "") {
-  questionImage.innerHTML = "לכתוב קוד ששותל פה תמונה";
+
+function setQuestion() {
+  questionName.innerHTML = currentExam[questionIndex]["question"];
+  optionsList.innerHTML = "";
+  questionImage.innerHTML = "";
+  for (
+    let i = 0;
+    i < Object.keys(currentExam[questionIndex]["options"]).length;
+    i++
+  ) {
+    let a = document.createElement("a");
+    a.innerHTML = currentExam[questionIndex]["options"][i];
+    a.id = "option-" + i;
+    a.onclick = onChoosingAnswer;
+    optionsList
+      .appendChild(a)
+      .classList.add(
+        "dropdown-item",
+        "list-group-item",
+        "list-group-item-action"
+      );
+  }
+  if (Object.values(currentExam[questionIndex]["image"]) != "") {
+    questionImage.innerHTML = currentExam[questionIndex]["image"];
+  }
 }
-// Buttons
+
 function onReset() {
   console.log("Resetting");
 }
@@ -73,17 +95,47 @@ function onFilter() {
   console.log("Filtering");
 }
 
-function onChoose(i) {
-  console.log("Filtering");
+function onChoosingIndex() {
+  let id = this.id.substring(5);
+  questionIndex = id;
+  setQuestion();
 }
 
-// Index
-questionButtons.innerHTML = "";
-
-for (let i = 0; i < Object.keys(currentExam).length; i++) {
-  let button = document.createElement("button");
-  button.innerHTML = i + 1;
-  questionButtons
-    .appendChild(button)
-    .classList.add("btn", "btn-outline-secondary");
+function onChoosingAnswer() {
+  let id = this.id.substring(7);
+  id++;
+  if (id == currentExam[questionIndex]["answer"]) {
+    this.classList.add("list-group-item-success");
+  } else {
+    this.classList.add("list-group-item-danger");
+  }
 }
+
+//
+//
+// INDEX
+//
+//
+
+function indexSetUp() {
+  questionButtons.innerHTML = "";
+
+  for (let i = 0; i < Object.keys(currentExam).length; i++) {
+    let button = document.createElement("button");
+    button.innerHTML = i + 1;
+    button.onclick = onChoosingIndex;
+    button.id = "page-" + i;
+    questionButtons
+      .appendChild(button)
+      .classList.add("btn", "btn-outline-secondary");
+  }
+}
+
+//
+//
+// RUN FUNCTIONS
+//
+//
+
+setPageObjects();
+indexSetUp();
