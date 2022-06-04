@@ -71,6 +71,9 @@
           {{ question.image }}
         </a>
       </div>
+      <div class="p-3">
+        <p id="explanation-text">{{ explanation.text }}</p>
+      </div>
       <div
         id="question-buttons"
         role="toolbar"
@@ -90,7 +93,9 @@
       integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
       crossorigin="anonymous"
     ></script>
-    <script src="index.js"></script>
+    <script type="text/javascript" src="exams/example.json"></script>
+
+    <script src="json-parsing.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

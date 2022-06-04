@@ -96,12 +96,21 @@ function onFilter() {
 }
 
 function onChoosingIndex() {
+  clearChoosingIndex();
   let id = this.id.substring(5);
   questionIndex = id;
   setQuestion();
 }
 
+function clearChoosingOptions() {
+  // document
+  //   .getElementsByClassName("index-btn")
+  //   .classList.remove("list-group-item-success", "list-group-item-danger");
+}
+function clearChoosingIndex() {}
+
 function onChoosingAnswer() {
+  clearChoosingOptions();
   let id = this.id.substring(7);
   id++;
   if (id == currentExam[questionIndex]["answer"]) {
@@ -127,7 +136,7 @@ function indexSetUp() {
     button.id = "page-" + i;
     questionButtons
       .appendChild(button)
-      .classList.add("btn", "btn-outline-secondary");
+      .classList.add("btn", "btn-outline-secondary", "index-btn");
   }
 }
 
