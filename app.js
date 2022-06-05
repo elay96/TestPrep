@@ -1,5 +1,18 @@
 "use strict";
 
+const http = require("http");
+const port = process.env.PORT || 3000;
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "text/html");
+  res.end("<h1>Hello World</h1>");
+});
+
+server.listen(port, () => {
+  console.log(`Server running at port ` + port);
+});
+
 const exam = document.getElementById("exam");
 const examName = document.getElementById("exam-name");
 const questionName = document.getElementById("question-name");
