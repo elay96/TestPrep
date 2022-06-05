@@ -1,58 +1,14 @@
 "use strict";
 
-//
-//
-// EXAMPLE TEST
-//
-//
-
-const currentExam = [
-  {
-    question:
-      "הינך נימצא בנקודה שהאורך הגיאוגרפי שלה הוא 35:00 מערב. השעון המקומי מראה 01:24 LMT. מהי השעה ב UTC ?",
-    options: [
-      "23:04 UTC יום לפני כן",
-      "03:44 UTC באותו יום",
-      "23:04 UTC באותו יום",
-      "23:04 UTC יום למחרת",
-    ],
-    answer: 2,
-    explain: "",
-    image: "",
-  },
-  {
-    question:
-      "הנך נימצא בנקודה שהאורך הגיאוגרפי שלה 55:00 W הירח זורח ב 02:24 LMT מתי הזריחה לפי UTC ?",
-    options: [
-      "22:44 UTC יום אחרי",
-      "22:44 UTC באותו יום",
-      "22:44 UTC יום קודם",
-      "06:04 UTC באותו יום",
-    ],
-    answer: 4,
-    explain: "",
-    image: "example.png",
-  },
-];
-
-//
-//
-// DEFINE VARIABLES
-//
-//
-
+const exam = document.getElementById("exam");
 const examName = document.getElementById("exam-name");
 const questionName = document.getElementById("question-name");
 const optionsList = document.getElementById("options-list");
 const questionImage = document.getElementById("question-image");
 const questionButtons = document.getElementById("question-buttons");
+const explanationText = document.getElementById("explanation-text");
+questionButtons.innerHTML = "";
 let questionIndex = 0;
-
-//
-//
-// DEFINE FUNCTIONS
-//
-//
 
 function setPageObjects(test_name) {
   // Will be replaced with test's name
@@ -65,6 +21,7 @@ function setQuestion() {
   questionName.innerHTML = currentExam[questionIndex]["question"];
   optionsList.innerHTML = "";
   questionImage.innerHTML = "";
+  explanationText.innerHTML = "";
   for (
     let i = 0;
     i < Object.keys(currentExam[questionIndex]["options"]).length;
@@ -73,7 +30,7 @@ function setQuestion() {
     let a = document.createElement("a");
     a.innerHTML = currentExam[questionIndex]["options"][i];
     a.id = "option-" + i;
-    a.onclick = onChoosingAnswer;
+    a.onclick = onChoosingOption;
     optionsList
       .appendChild(a)
       .classList.add(
@@ -95,21 +52,43 @@ function onFilter() {
   console.log("Filtering");
 }
 
+function indexSetUp() {
+  for (let i = 0; i < Object.keys(currentExam).length; i++) {
+    let indexButton = document.createElement("button");
+    indexButton.innerHTML = i + 1;
+    indexButton.onclick = onChoosingIndex;
+    indexButton.id = "page-" + i;
+    questionButtons
+      .appendChild(indexButton)
+      .classList.add("btn", "btn-outline-secondary", "index-btn");
+  }
+}
+
 function onChoosingIndex() {
-  clearChoosingIndex();
   let id = this.id.substring(5);
   questionIndex = id;
   setQuestion();
 }
 
-function clearChoosingOptions() {
-  // document
-  //   .getElementsByClassName("index-btn")
-  //   .classList.remove("list-group-item-success", "list-group-item-danger");
+document.addEventListener("keydown", choosingIndexUsingKeyboard);
+function choosingIndexUsingKeyboard(keyPressed) {
+  if (questionIndex < Object.keys(currentExam).length && questionIndex >= 0) {
+    if (
+      keyPressed.key == "ArrowLeft" &&
+      questionIndex < Object.keys(currentExam).length - 1
+    ) {
+      questionIndex++;
+      setQuestion();
+    } else if (keyPressed.key == "ArrowRight" && questionIndex > 0) {
+      questionIndex--;
+      setQuestion();
+    }
+  } else {
+    // Do nothing
+  }
 }
-function clearChoosingIndex() {}
 
-function onChoosingAnswer() {
+function onChoosingOption() {
   clearChoosingOptions();
   let id = this.id.substring(7);
   id++;
@@ -120,25 +99,15 @@ function onChoosingAnswer() {
   }
 }
 
-//
-//
-// INDEX
-//
-//
-
-function indexSetUp() {
-  questionButtons.innerHTML = "";
-
-  for (let i = 0; i < Object.keys(currentExam).length; i++) {
-    let button = document.createElement("button");
-    button.innerHTML = i + 1;
-    button.onclick = onChoosingIndex;
-    button.id = "page-" + i;
-    questionButtons
-      .appendChild(button)
-      .classList.add("btn", "btn-outline-secondary", "index-btn");
+function clearChoosingOptions() {
+  for (let i = 0; i < Object.keys(currentExam[questionIndex]).length - 1; i++) {
+    document
+      .getElementById(`option-${i}`)
+      .classList.remove("list-group-item-success", "list-group-item-danger");
   }
 }
+
+function clearChoosingIndex() {}
 
 //
 //
