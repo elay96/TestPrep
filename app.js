@@ -60,6 +60,8 @@ function setPageObjects(test_name) {
   examName.innerHTML = "מבחן לדוגמא";
   questionIndex = 0;
   setQuestion();
+  indexSetUp();
+  indexColorChoosing();
 }
 
 function setQuestion() {
@@ -113,6 +115,7 @@ function onChoosingIndex() {
   let id = this.id.substring(5);
   questionIndex = id;
   setQuestion();
+  indexColorChoosing();
 }
 
 document.addEventListener("keydown", choosingIndexUsingKeyboard);
@@ -124,9 +127,11 @@ function choosingIndexUsingKeyboard(keyPressed) {
     ) {
       questionIndex++;
       setQuestion();
+      indexColorChoosing();
     } else if (keyPressed.key == "ArrowRight" && questionIndex > 0) {
       questionIndex--;
       setQuestion();
+      indexColorChoosing();
     }
   } else {
     // Do nothing
@@ -139,8 +144,20 @@ function onChoosingOption() {
   id++;
   if (id == currentExam[questionIndex]["answer"]) {
     this.classList.add("list-group-item-success");
+    document
+      .getElementById(`page-${questionIndex}`)
+      .classList.remove("btn-outline-primary", "btn-outline-danger");
+    document
+      .getElementById(`page-${questionIndex}`)
+      .classList.add("btn-outline-success");
   } else {
     this.classList.add("list-group-item-danger");
+    document
+      .getElementById(`page-${questionIndex}`)
+      .classList.remove("btn-outline-primary", "btn-outline-danger");
+    document
+      .getElementById(`page-${questionIndex}`)
+      .classList.add("btn-outline-danger");
   }
 }
 
@@ -152,6 +169,13 @@ function clearChoosingOptions() {
   }
 }
 
+function indexColorChoosing() {
+  for (let i = 0; i < Object.keys(currentExam).length; i++) {
+    document.getElementById(`page-${i}`).classList.remove("active");
+  }
+  document.getElementById(`page-${questionIndex}`).classList.add("active");
+}
+
 function clearChoosingIndex() {}
 
 //
@@ -161,4 +185,3 @@ function clearChoosingIndex() {}
 //
 
 setPageObjects();
-indexSetUp();
