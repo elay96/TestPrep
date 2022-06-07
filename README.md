@@ -1,4 +1,3 @@
-
 # TestPrep
 
 A modular open source test preparation system.
@@ -15,3 +14,6 @@ A modular open source test preparation system.
 - Light/dark mode toggle
 - Fullscreen mode
 
+## Screenshots
+
+![App Screenshot](https://i.ibb.co/QCT6Rm8/Screenshot.png)
