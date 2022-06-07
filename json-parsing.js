@@ -31,15 +31,15 @@ let currentExam = [
   },
 ];
 
-// let currentExam2 = [];
 // const json_url = "exams/example.json";
-
+// let outerArr = [];
 // fetch(json_url)
 //   .then((response) => response.json())
 //   .then((data) => {
-//     const innerArr = Object.values(data);
-//     currentExam2.push(...innerArr);
+//     let innerArr = Object.values(data);
+//     changeCurrentExam(innerArr);
 //   });
-
-// console.log(currentExam[0]);
-// console.log(currentExam2[0]);
+// function changeCurrentExam(data) {
+//   let currentExam = data;
+//   console.log(currentExam);
+// }

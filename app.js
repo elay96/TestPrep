@@ -159,6 +159,11 @@ function onChoosingOption() {
       .getElementById(`page-${questionIndex}`)
       .classList.add("btn-outline-danger");
   }
+  // currentExam[questionIndex]["userChoice"] = id;
+  // window.localStorage.setItem(
+  //   "currentExam",
+  //   JSON.stringify(currentExam[questionIndex]["userChoice"])
+  // );
 }
 
 function clearChoosingOptions() {
