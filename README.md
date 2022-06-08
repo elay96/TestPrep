@@ -6,8 +6,8 @@ A modular open source test preparation system.
 
 - Upload tests as TEXT file
 - Upload as many test as you want
-- Get an instant feedback whether you correct or not
-- Have the option to add explanations and images
+- Get an instant feedback wether you correct or not
+- Have the option to add explanation and images
 - Cross platform
 - Reset answers button
 - Show only wrong answers button!
