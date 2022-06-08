@@ -1,6 +1,7 @@
 ("use strict");
-import firstExam from "/exams/ימאות-ג.json" assert { type: "json" };
-import secondExam from "/exams/מכונה.json" assert { type: "json" };
+
+// import firstExam from "/exams/ימאות-ג.json" assert { type: "json" };
+// import secondExam from "/exams/מכונה.json" assert { type: "json" };
 const exam = document.getElementById("exam");
 const examName = document.getElementById("exam-name");
 const questionName = document.getElementById("question-name");
