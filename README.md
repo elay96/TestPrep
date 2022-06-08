@@ -16,4 +16,12 @@ A modular open source test preparation system.
 
 ## Screenshots
 
-![App Screenshot](https://gcdnb.pbrd.co/images/ic3R5h8zBcQT.jpg?raw=true)
+![App Screenshot](https://gcdnb.pbrd.co/images/G0vEkzcusD8r.jpg?raw=true)
+
+## Fixes in work
+
+- להוסיף באופן אוטומטי מספרי שאלות ואותיות לתשובות
+- לתקן את קישוריות רשימת הבחינות
+- לתקן את שם המבחן
+- להוסיף הסבר לשאלה
+- להגדיר גודל דינאמי של תמונה
