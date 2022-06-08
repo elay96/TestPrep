@@ -1,0 +1,23 @@
+{
+  "name": "testprep",
+  "version": "1.0.0",
+  "description": "A modular open source test preparation system.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elay96/TestPrep.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elay96/TestPrep/issues"
+  },
+  "homepage": "https://github.com/elay96/TestPrep#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
