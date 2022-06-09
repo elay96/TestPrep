@@ -87,6 +87,7 @@ function indexSetUp() {
     indexButton.innerHTML = i + 1;
     indexButton.onclick = onChoosingIndex;
     indexButton.id = "page-" + i;
+    indexButton.setAttribute("type", "button");
     questionButtons
       .appendChild(indexButton)
       .classList.add("btn", "btn-outline-secondary", "index-btn");

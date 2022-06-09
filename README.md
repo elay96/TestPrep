@@ -16,7 +16,7 @@ A modular open source test preparation system.
 
 ## Screenshots
 
-![App Screenshot](https://gcdnb.pbrd.co/images/G0vEkzcusD8r.jpg?raw=true)
+![App Screenshot](https://gcdnb.pbrd.co/images/lyqsoAQN9dNU.jpg?raw=true)
 
 ## Fixes in work
 

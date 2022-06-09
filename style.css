@@ -1,0 +1,21 @@
+body {
+  background-color: #f8f9fa;
+}
+#navbar {
+  background-color: #fff;
+  border-bottom: 1px solid #dee2e6;
+}
+/* btn-group > .btn,
+.btn-group-vertical > .btn {
+  position: relative !important;
+  float: left !important;
+}
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+.btn-group > .btn:last-child:not(:first-child),
+.btn-group > .dropdown-toggle:not(:first-child) {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+} */
