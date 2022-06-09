@@ -1,6 +1,30 @@
 "use strict";
 import firstExam from "/exams/ימאות-ג.json" assert { type: "json" };
 import secondExam from "/exams/מכונה.json" assert { type: "json" };
+const alphabet = [
+  "א",
+  "ב",
+  "ג",
+  "ד",
+  "ה",
+  "ו",
+  "ז",
+  "ח",
+  "ט",
+  "י",
+  "כ",
+  "ל",
+  "מ",
+  "נ",
+  "ס",
+  "ע",
+  "פ",
+  "צ",
+  "ק",
+  "ר",
+  "ש",
+  "ת",
+];
 const exam = document.getElementById("exam");
 const examName = document.getElementById("exam-name");
 const questionName = document.getElementById("question-name");
@@ -15,10 +39,13 @@ const examsArray = { firstExam: "ימאות ג", secondExam: "מכונה" };
 questionButtons.innerHTML = "";
 examNamesDropdownList.innerHTML = "";
 let currentExam = firstExam;
+let currentExamString = "firstExam";
 let questionIndex = 0;
+let currentExamName = "";
 
 function startApp() {
-  setPageObjects();
+  currentExamName = examsArray[currentExamString];
+  setPageObjects(currentExamName);
 }
 
 function testsDropdownList() {
@@ -42,9 +69,10 @@ function setPageObjects(test_name) {
   indexSetUp();
   indexColorChoosing();
 }
-
 function setQuestion() {
-  questionName.innerHTML = currentExam[questionIndex]["question"];
+  let questionIndexForPrinting = Number(questionIndex) + 1;
+  questionName.innerHTML =
+    questionIndexForPrinting + ". " + currentExam[questionIndex]["question"];
   optionsList.innerHTML = "";
   questionImage.innerHTML = "";
   explanationText.innerHTML = "";
@@ -54,7 +82,9 @@ function setQuestion() {
     i++
   ) {
     let option = document.createElement("a");
-    option.innerHTML = currentExam[questionIndex]["options"][i];
+
+    option.innerHTML =
+      alphabet[i] + ". " + currentExam[questionIndex]["options"][i];
     option.id = "option-" + i;
     option.onclick = onChoosingOption;
     optionsList
@@ -126,6 +156,7 @@ function onChoosingOption() {
   let id = this.id.substring(7);
   id++;
   if (id == currentExam[questionIndex]["answer"]) {
+    explanationText.innerHTML = "";
     this.classList.add("list-group-item-success");
     document
       .getElementById(`page-${questionIndex}`)
@@ -141,6 +172,15 @@ function onChoosingOption() {
     document
       .getElementById(`page-${questionIndex}`)
       .classList.add("btn-outline-danger");
+    if (
+      currentExam[questionIndex]["explain"] != "" &&
+      !document.getElementById("explain-text")
+    ) {
+      let explain = document.createElement("p");
+      explain.innerHTML = currentExam[questionIndex]["explain"];
+      explain.id = "explain-text";
+      explanationText.appendChild(explain);
+    }
   }
   // currentExam[questionIndex]["userChoice"] = id;
   // window.localStorage.setItem(

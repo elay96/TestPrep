@@ -46,12 +46,10 @@
                 </ul>
               </li>
             </ul>
-            <form class="px-3">
-              <div class="input-group">
-                <span class="input-group-text" id="basic-addon1">2</span>
-                <span class="input-group-text" id="basic-addon1">0</span>
-              </div>
-            </form>
+            <div class="btn-group px-3">
+                <span class="input-group-text static-text" id="correct-answers">2</span>
+                <span class="input-group-text static-text" id="total-answers">3</span>
+            </div>
           </div>
         </nav>
       </div>
@@ -62,23 +60,23 @@
           <ol id="options-list" class="list-group-numbered p-3">
             <a>{{ options.list }}</a>
           </ol>
-          <a id="question-image">
+          <a id="question-image" class="p-3">
             <img width="100%" />
             {{ question.image }}
           </a>
         </div>
         <div class="p-3">
-          <p id="explanation-text">{{ explanation.text }}</p>
+          <p id="explanation-text" class="p-3">{{ explanation.text }}</p>
         </div>
         <div
           class="container-fluid fixed-bottom btn-toolbar mb-3 justify-content-between"
         >
           <div class="btn-group">
-            <div id="question-buttons" class="group">
+            <div id="question-buttons" class="btn-group">
             <button>{{ question.index }}</button>
           </div>
           </div>
-          <div class="btn-group">
+          <div class="group">
             <div class="group">
               <button
                 class="btn btn-warning"
