@@ -32,6 +32,8 @@ const optionsList = document.getElementById("options-list");
 const questionImage = document.getElementById("question-image");
 const questionButtons = document.getElementById("question-buttons");
 const explanationText = document.getElementById("explanation-text");
+const filterButton = document.getElementById("filter-button");
+const resetButton = document.getElementById("reset-button");
 const examNamesDropdownList = document.getElementById(
   "exam-names-dropdown-list"
 );
@@ -74,6 +76,7 @@ function setQuestion() {
   questionName.innerHTML =
     questionIndexForPrinting + ". " + currentExam[questionIndex]["question"];
   optionsList.innerHTML = "";
+  optionsList.id = currentExamString + "_" + questionIndex;
   questionImage.innerHTML = "";
   explanationText.innerHTML = "";
   for (
@@ -101,12 +104,19 @@ function setQuestion() {
     img.style.height = "100px";
     questionImage.appendChild(img);
   }
+  if (localStorage.getItem(JSON.stringify(optionsList.id)) != null) {
+    let questionIdToPass = localStorage.getItem(JSON.stringify(optionsList.id));
+    questionIdToPass = "option-" + questionIdToPass;
+    optionsPageElements(questionIdToPass);
+  }
 }
 
+resetButton.addEventListener("click", onReset);
 function onReset() {
-  console.log("Resetting");
+  localStorage.clear();
+  location.reload();
 }
-
+filterButton.addEventListener("click", onFilter);
 function onFilter() {
   console.log("Filtering");
 }
@@ -121,12 +131,37 @@ function indexSetUp() {
     questionButtons
       .appendChild(indexButton)
       .classList.add("btn", "btn-outline-secondary", "index-btn");
+    if (localStorage.getItem(JSON.stringify(optionsList.id)) != null) {
+      let questionIdToPass = localStorage.getItem(
+        JSON.stringify(optionsList.id)
+      );
+      questionIdToPass = "option-" + questionIdToPass;
+      optionsPageElements(questionIdToPass);
+    }
+    let indexItemId = currentExamString + "_" + i;
+    let answer = Number(currentExam[i]["answer"]) - 1;
+    let localStorageSavedQuestion = localStorage.getItem(
+      JSON.stringify(indexItemId)
+    );
+    if (localStorageSavedQuestion != null) {
+      if (localStorageSavedQuestion == answer) {
+        indexButton.classList.remove(
+          "btn-outline-primary",
+          "btn-outline-danger"
+        );
+        indexButton.classList.add("btn-outline-success");
+      } else {
+        indexButton.classList.remove(
+          "btn-outline-primary",
+          "btn-outline-success"
+        );
+        indexButton.classList.add("btn-outline-danger");
+      }
+    }
   }
 }
-
 function onChoosingIndex() {
-  let id = this.id.substring(5);
-  questionIndex = id;
+  questionIndex = this.id.substring(5);
   setQuestion();
   indexColorChoosing();
 }
@@ -150,28 +185,34 @@ function choosingIndexUsingKeyboard(keyPressed) {
     // Do nothing
   }
 }
-
 function onChoosingOption() {
   clearChoosingOptions();
-  let id = this.id.substring(7);
-  id++;
-  if (id == currentExam[questionIndex]["answer"]) {
+  let id = this.id;
+  localStorage.setItem(
+    JSON.stringify(currentExamString + "_" + questionIndex),
+    id.substring(7)
+  );
+  optionsPageElements(id);
+}
+
+function optionsPageElements(questionId) {
+  const thisId = document.getElementById(questionId);
+  const pageElement = document.getElementById("page-" + questionIndex);
+  let answer = Number(currentExam[questionIndex]["answer"]) - 1;
+  questionId = questionId.substring(7);
+  if (questionId == answer) {
     explanationText.innerHTML = "";
-    this.classList.add("list-group-item-success");
-    document
-      .getElementById(`page-${questionIndex}`)
-      .classList.remove("btn-outline-primary", "btn-outline-danger");
-    document
-      .getElementById(`page-${questionIndex}`)
-      .classList.add("btn-outline-success");
+    thisId.classList.add("list-group-item-success");
+    if (pageElement != null) {
+      pageElement.classList.remove("btn-outline-primary", "btn-outline-danger");
+      pageElement.classList.add("btn-outline-success");
+    }
   } else {
-    this.classList.add("list-group-item-danger");
-    document
-      .getElementById(`page-${questionIndex}`)
-      .classList.remove("btn-outline-primary", "btn-outline-danger");
-    document
-      .getElementById(`page-${questionIndex}`)
-      .classList.add("btn-outline-danger");
+    thisId.classList.add("list-group-item-danger");
+    if (pageElement != null) {
+      pageElement.classList.remove("btn-outline-primary", "btn-outline-danger");
+      pageElement.classList.add("btn-outline-danger");
+    }
     if (
       currentExam[questionIndex]["explain"] != "" &&
       !document.getElementById("explain-text")
@@ -182,11 +223,6 @@ function onChoosingOption() {
       explanationText.appendChild(explain);
     }
   }
-  // currentExam[questionIndex]["userChoice"] = id;
-  // window.localStorage.setItem(
-  //   "currentExam",
-  //   JSON.stringify(currentExam[questionIndex]["userChoice"])
-  // );
 }
 
 function clearChoosingOptions() {
